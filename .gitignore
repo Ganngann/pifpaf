@@ -1,22 +1,24 @@
-# JetBrains-specific
-.idea/
-
-# Dependencies
-/vendor/
-/node_modules/
-
-# Environment files
+*.log
+.DS_Store
 .env
 .env.backup
 .env.production
-
-# Laravel-specific
-/storage/framework/
-/storage/logs/
-laravel.log
-/public/storage
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
 /public/hot
-
-# Assets
-npm-debug.log
-yarn-error.log
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+Homestead.json
+Homestead.yaml
+Thumbs.db
