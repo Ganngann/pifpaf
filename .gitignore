@@ -1,0 +1,22 @@
+# JetBrains-specific
+.idea/
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Environment files
+.env
+.env.backup
+.env.production
+
+# Laravel-specific
+/storage/framework/
+/storage/logs/
+laravel.log
+/public/storage
+/public/hot
+
+# Assets
+npm-debug.log
+yarn-error.log
