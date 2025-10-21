@@ -35,33 +35,27 @@
 
         <div class="container mx-auto mt-8">
             <main class="w-full">
-                <div class="mb-8">
-                    <form action="{{ route('ads.search') }}" method="GET" class="flex">
-                        <input type="text" name="query" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="Rechercher des articles...">
-                        <button type="submit" class="ml-2 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            Rechercher
-                        </button>
-                    </form>
-                </div>
                 <h2 class="text-2xl font-bold mb-6">Dernières Annonces</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    @foreach ($latestAds as $ad)
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                            <a href="{{ route('ads.show', $ad) }}">
-                                @if ($ad->images->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $ad->images->first()->image_path) }}" alt="{{ $ad->title }}" class="w-full h-48 object-cover">
-                                @else
-                                    <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                                        <span class="text-gray-500 dark:text-gray-400">No Image</span>
+                    @isset($latestAds)
+                        @foreach ($latestAds as $ad)
+                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                                <a href="{{ route('ads.show', $ad) }}">
+                                    @if ($ad->images->isNotEmpty())
+                                        <img src="{{ asset('storage/' . $ad->images->first()->image_path) }}" alt="{{ $ad->title }}" class="w-full h-48 object-cover">
+                                    @else
+                                        <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                                            <span class="text-gray-500 dark:text-gray-400">No Image</span>
+                                        </div>
+                                    @endif
+                                    <div class="p-4">
+                                        <h3 class="font-bold">{{ $ad->title }}</h3>
+                                        <p class="text-gray-600 dark:text-gray-400">{{ number_format($ad->price, 2) }} €</p>
                                     </div>
-                                @endif
-                                <div class="p-4">
-                                    <h3 class="font-bold">{{ $ad->title }}</h3>
-                                    <p class="text-gray-600 dark:text-gray-400">{{ number_format($ad->price, 2) }} €</p>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+                                </a>
+                            </div>
+                        @endforeach
+                    @endisset
                 </div>
             </main>
         </div>

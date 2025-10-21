@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Ad;
 
 Route::get('/', function () {
-    $latestAds = Ad::with('images')->latest()->take(12)->get();
-    return view('welcome', ['latestAds' => $latestAds]);
+    $latestAds = Ad::where('status', 'available')->with('images')->latest()->take(12)->get();
+    return view('welcome', compact('latestAds'));
 });
 
 Route::get('/dashboard', function () {
@@ -27,6 +27,17 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/ads/{ad}', [AdController::class, 'show'])->name('ads.show');
 
-Route::get('/search', [AdController::class, 'search'])->name('ads.search');
+// Messaging routes
+Route::middleware('auth')->group(function () {
+    Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/{conversation}', [\App\Http\Controllers\MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages/{ad}', [\App\Http\Controllers\MessageController::class, 'store'])->name('messages.store');
+    Route::post('/messages/offer/{conversation}', [\App\Http\Controllers\MessageController::class, 'makeOffer'])->name('messages.offer.make');
+    Route::post('/messages/offer/respond/{message}', [\App\Http\Controllers\MessageController::class, 'respondToOffer'])->name('messages.offer.respond');
+
+    // Payment routes
+    Route::get('/payment/{ad}', [\App\Http\Controllers\PaymentController::class, 'create'])->name('payment.create');
+    Route::post('/payment/{ad}', [\App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
+});
 
 require __DIR__.'/auth.php';

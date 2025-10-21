@@ -34,6 +34,25 @@
                             <div class="mt-6">
                                 <p class="text-sm text-gray-500">Vendu par : {{ $ad->user->name }}</p>
                             </div>
+
+                            @auth
+                                @if(Auth::id() !== $ad->user_id)
+                                    <div class="mt-6">
+                                        <form action="{{ route('messages.store', $ad) }}" method="POST">
+                                            @csrf
+                                            <div class="mt-4">
+                                                <x-input-label for="body" :value="__('Message')" />
+                                                <textarea id="body" name="body" class="block mt-1 w-full" required autofocus></textarea>
+                                            </div>
+                                            <div class="flex items-center justify-end mt-4">
+                                                <x-primary-button>
+                                                    {{ __('Contacter le vendeur') }}
+                                                </x-primary-button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @endif
+                            @endauth
                         </div>
                     </div>
 
