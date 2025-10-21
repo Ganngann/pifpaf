@@ -130,7 +130,7 @@
                     const formData = new FormData();
                     formData.append('image', file);
 
-                    fetch('{{ route('api.analyze-image') }}', {
+                    fetch('{{ route('ads.analyze') }}', {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -148,7 +148,7 @@
                             document.getElementById('description').value = data.description || '';
                             // Try to select the category, fallback to 'other'
                             const categorySelect = document.getElementById('category');
-                            const suggestedCategory = Array.from(categorySelect.options).find(opt => opt.text.toLowerCase() === data.category);
+                            const suggestedCategory = Array.from(categorySelect.options).find(opt => opt.text.toLowerCase() === data.category.toLowerCase());
                             categorySelect.value = suggestedCategory ? suggestedCategory.value : 'other';
                         }
                     })

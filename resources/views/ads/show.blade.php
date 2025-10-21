@@ -32,7 +32,7 @@
                             </div>
                             <p class="mt-6 text-gray-600">{{ $ad->description }}</p>
                             <div class="mt-6">
-                                <p class="text-sm text-gray-500">Vendu par : {{ $ad->user->name }}</p>
+                                <p class="text-sm text-gray-500">Vendu par : <a href="{{ route('profiles.show', $ad->user) }}">{{ $ad->user->name }}</a></p>
                             </div>
 
                             @auth

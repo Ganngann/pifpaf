@@ -38,6 +38,16 @@ class User extends Authenticatable
         return $this->hasMany(Ad::class);
     }
 
+    public function ratingsGiven()
+    {
+        return $this->hasMany(Rating::class, 'rater_id');
+    }
+
+    public function ratingsReceived()
+    {
+        return $this->hasMany(Rating::class, 'ratee_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
