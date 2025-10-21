@@ -28,6 +28,13 @@
                                 </div>
                             @elseif ($message->offer_status)
                                 <p class="mt-2">Offer {{ $message->offer_status }}</p>
+                                @if ($message->offer_status === 'accepted' && $conversation->buyer_id === Auth::id())
+                                    <div class="mt-2">
+                                        <a href="{{ route('payment.create', ['ad' => $conversation->ad, 'offer_price' => $message->offer_price]) }}" class="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 active:bg-green-700 focus:outline-none focus:border-green-700 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                            Pay Now
+                                        </a>
+                                    </div>
+                                @endif
                             @endif
                         </div>
                     @endif
