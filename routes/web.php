@@ -23,9 +23,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/ads', [AdController::class, 'index'])->name('ads.index');
     Route::get('/ads/create', [AdController::class, 'create'])->name('ads.create');
     Route::post('/ads', [AdController::class, 'store'])->name('ads.store');
+    Route::post('/ads/analyze-image', [AdController::class, 'analyzeImage'])->name('ads.analyze');
 });
 
+use App\Http\Controllers\SearchController;
+
 Route::get('/ads/{ad}', [AdController::class, 'show'])->name('ads.show');
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+
+// Public profile route
+Route::get('/profiles/{user}', [\App\Http\Controllers\PublicProfileController::class, 'show'])->name('profiles.show');
 
 // Messaging routes
 Route::middleware('auth')->group(function () {
@@ -38,6 +45,13 @@ Route::middleware('auth')->group(function () {
     // Payment routes
     Route::get('/payment/{ad}', [\App\Http\Controllers\PaymentController::class, 'create'])->name('payment.create');
     Route::post('/payment/{ad}', [\App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
+
+    // Rating routes
+    Route::get('/ratings/create/{transaction}', [\App\Http\Controllers\RatingController::class, 'create'])->name('ratings.create');
+    Route::post('/ratings/{transaction}', [\App\Http\Controllers\RatingController::class, 'store'])->name('ratings.store');
+
+    // Transaction routes
+    Route::get('/transactions/{transaction}', [\App\Http\Controllers\TransactionController::class, 'show'])->name('transactions.show');
 });
 
 require __DIR__.'/auth.php';

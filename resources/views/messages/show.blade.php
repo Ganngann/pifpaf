@@ -8,7 +8,7 @@
         <div class="mb-4">
             @foreach ($conversation->messages as $message)
                 <div class="mb-4">
-                    <p class="font-semibold">{{ $message->user->name }} <span class="text-sm text-gray-500 dark:text-gray-400">{{ $message->created_at->diffForHumans() }}</span></p>
+                    <p class="font-semibold"><a href="{{ route('profiles.show', $message->user) }}">{{ $message->user->name }}</a> <span class="text-sm text-gray-500 dark:text-gray-400">{{ $message->created_at->diffForHumans() }}</span></p>
                     <p>{{ $message->body }}</p>
                     @if ($message->offer_price)
                         <div class="mt-2 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
