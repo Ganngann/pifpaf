@@ -29,3 +29,6 @@ __pycache__/
 
 # Ignore screenshots
 *.png
+
+# Ignore Playwright test results
+/test-results/
